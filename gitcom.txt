@@ -1,0 +1,10 @@
+Hello folks
+Roshan is a lazy and idiot guy.
+git status -> will show if any changes is made .
+git add . -> will bring everything on the stage for commit in the current directory
+git commit -m "comments" -> will commit all the staged items leaving some comments for history.
+git restore --staged file_name -> will remove all the things from the stage
+git restore file_name -> will bring back the deleted file
+git stash -> will put everything to the back of stage in case we need it later to commit but not for now. We won't even know if that thing existed prior.
+git stash pop -> will bring back everything from the back of stage in unstaged state even though those were staged while stashing them.
+git stash clear -> will clear the back of stage without keeping any track, deleting them forever.
