@@ -8,3 +8,36 @@ git restore file_name -> will bring back the deleted file
 git stash -> will put everything to the back of stage in case we need it later to commit but not for now. We won't even know if that thing existed prior.
 git stash pop -> will bring back everything from the back of stage in unstaged state even though those were staged while stashing them.
 git stash clear -> will clear the back of stage without keeping any track, deleting them forever.
+
+By default/convention, our github account url is named origin.
+	git remote add origin <url>
+By default/convention, github account url from where we do fork, is named upstream
+	git remote add upstream <url of project which we forked>
+
+when we create a new branch and commit the changes in the forked projects, we create pull request. When out pull request is merged, the main branch of upstream(it is url of project from where we have forked) will have more commits/changes than our earlier forked main branch(origin). Because though we have made changes in the upstream which were merged, but the changes were in branch other than main in origin. So we need to update forked main branch with upstream main branch so that when other makes changes to the original project, our forked project in out local computer is up-to-date.
+
+e.g. -> kunal-kushwaha/commclassroomOP is forked from commclassroom/commclassroomOP
+	signal: local main branch is 2 commits behind commclassroom:main.
+	Now, to update out local main branch, the command is:
+		Step 1: git fetch --all --prune 
+	--all means all branches & --prune means all those that are deleted as well
+		Step 2: git checkout main
+	because we are updating our main branch so whatever changes we make from now onwards should go to out main branch
+		Step 3: git reset --hard upstream/main
+	--reset the main branch of my origin to the main branch of upstream
+Now the main branch of my forked local project will be exactly same to that of upstream main branch. But still it has to be pushed online because till now, we have it only in out computer offline.
+		Step 4: git push origin main
+	signal: this branch is even with commclassroom:main.
+
+These 4 steps can be done in single steps:
+	git pull upstream main
+provided head is pointing to our local main branch.(git checkout main)
+	git push origin main
+Hey, my local folder main is in sync with the main of upstream. Let's also sync the origin url by pushing.
+
+Sometime, we delete something in our local folder, but it still exists in origin url. Now while commiting such changes, we need to commit it forcefully.
+	git commit -m "message" --force
+
+Note: a single branch can only create no more than 1 pull request. So, if the branch has already created a pull request and we commits more in the same branch, the commits will be added to the same pull request. So, in order to create a separate pull request, we need to commit into the new branch and then push.
+
+Good practice is: Whenever u create a new branch, make sure your main/master branch is up-to-date.
