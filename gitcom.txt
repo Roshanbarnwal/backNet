@@ -41,3 +41,14 @@ Sometime, we delete something in our local folder, but it still exists in origin
 Note: a single branch can only create no more than 1 pull request. So, if the branch has already created a pull request and we commits more in the same branch, the commits will be added to the same pull request. So, in order to create a separate pull request, we need to commit into the new branch and then push.
 
 Good practice is: Whenever u create a new branch, make sure your main/master branch is up-to-date.
+
+Squash more commits in a single commit
+	Option 1: reset the commits and then after they are unstaged, commit all of them at once.
+	Option 2: git rebase -i <hashcode of commit just below the commits to be squashed>
+		Now, all the commits can be picked or squashed. For squashed 's' and forpicked 'pick' are the attribute.
+		e.g.
+			pick d9dd724 1
+			s c6969ee 2
+			s 759d644 3
+			pick 673d440 4
+		Here, 2 & 3 will be squashed in 1 as a single commit. 4 will have a separate commit. We can squash 4 into 1 as well for which we need to write 's' for 'pick'. Now to exit, command is -> :x
