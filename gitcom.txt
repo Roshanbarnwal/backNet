@@ -9,6 +9,8 @@ git stash -> will put everything to the back of stage in case we need it later t
 git stash pop -> will bring back everything from the back of stage in unstaged state even though those were staged while stashing them.
 git stash clear -> will clear the back of stage without keeping any track, deleting them forever.
 
+git reset <hashcode> -> will unstaged all the commits after this hashcode
+
 By default/convention, our github account url is named origin.
 	git remote add origin <url>
 By default/convention, github account url from where we do fork, is named upstream
