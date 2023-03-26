@@ -1,5 +1,9 @@
-Hello folks
+
+Hello folks. When a pull request is made in your code, you can see what are the changes made by clicking on '7ced33e' types of hashes otherwise you will
+see only the commit messages.
 Roshan is a lazy and idiot guy.
+GO to [branch] option present alongside branch-switching-option to have the option of deleting the branches in the github remote UI.
+
 git status -> will show if any changes is made .
 git add . -> will bring everything on the stage for commit in the current directory
 git commit -m "comments" -> will commit all the staged items leaving some comments for history.
@@ -8,15 +12,29 @@ git restore file_name -> will bring back the deleted file
 git stash -> will put everything to the back of stage in case we need it later to commit but not for now. We won't even know if that thing existed prior.
 git stash pop -> will bring back everything from the back of stage in unstaged state even though those were staged while stashing them.
 git stash clear -> will clear the back of stage without keeping any track, deleting them forever.
+git checkout -b <branch> -> will create new <branch> and switch to that branch.
+git branch -> will list all the branches in the current working directory
+git clone <url of github repo> -> will clone the project or fork the project.
+
+git remote -v -> will show all the url linked to the current working directory
+git remote set-url origin <url> -> will change current origin to this <url>
 
 git reset <hashcode> -> will unstaged all the commits after this hashcode
+git push --set-upstream origin main -> will push the commit to origin to its main branch along with the local 'main' branch. 
+						   If remote git already recognizes the local main branch then 'git push' is sufficient.
+
+git branch -d <branch> -> will delete the branch for which first delete <branch> in remote repo UI and then come to local and checkout to branch other than
+				  this <branch> and then pull from remote so that the local is up-to-date with deletion of branch in remote. Now execute this command.							
 
 By default/convention, our github account url is named origin.
 	git remote add origin <url>
 By default/convention, github account url from where we do fork, is named upstream
 	git remote add upstream <url of project which we forked>
 
-when we create a new branch and commit the changes in the forked projects, we create pull request. When out pull request is merged, the main branch of upstream(it is url of project from where we have forked) will have more commits/changes than our earlier forked main branch(origin). Because though we have made changes in the upstream which were merged, but the changes were in branch other than main in origin. So we need to update forked main branch with upstream main branch so that when other makes changes to the original project, our forked project in out local computer is up-to-date.
+when we create a new branch and commit the changes in the forked projects, we create pull request. When out pull request is merged, the main branch of 
+upstream(it is url of project from where we have forked) will have more commits/changes than our earlier forked main branch(origin). Because though we 
+have made changes in the upstream which were merged, but the changes were in branch other than main in origin. So we need to update forked main branch 
+with upstream main branch so that when other makes changes to the original project, our forked project in out local computer is up-to-date.
 
 e.g. -> kunal-kushwaha/commclassroomOP is forked from commclassroom/commclassroomOP
 	signal: local main branch is 2 commits behind commclassroom:main.
@@ -40,10 +58,16 @@ Hey, my local folder main is in sync with the main of upstream. Let's also sync 
 Sometime, we delete something in our local folder, but it still exists in origin url. Now while commiting such changes, we need to commit it forcefully.
 	git commit -m "message" --force
 
-Note: a single branch can only create no more than 1 pull request. So, if the branch has already created a pull request and we commits more in the same branch, the commits will be added to the same pull request. So, in order to create a separate pull request, we need to commit into the new branch and then push.
+Note: a single branch can only create no more than 1 pull request. So, if the branch has already created a pull request and we commits more in the same
+ branch, the commits will be added to the same pull request. So, in order to create a separate pull request, we need to commit into the new branch and 
+  then push.
 
 Good practice is: Whenever u create a new branch, make sure your main/master branch is up-to-date.
 
+New Branch
+	when a new branch is created and checked out, it needs to be pushed. Then it will be exact replica of main branch. So when we makes changes and pushes
+	it to remote, git can compare what files exactly are present or not in main and this branch.
+	
 Squash more commits in a single commit
 	Option 1: reset the commits and then after they are unstaged, commit all of them at once.
 	Option 2: git rebase -i <hashcode of commit just below the commits to be squashed>
@@ -54,3 +78,94 @@ Squash more commits in a single commit
 			s 759d644 3
 			pick 673d440 4
 		Here, 2 & 3 will be squashed in 1 as a single commit. 4 will have a separate commit. We can squash 4 into 1 as well for which we need to write 's' for 'pick'. Now to exit, command is -> :x
+
+MERGE CONFLICT: 
+
+/*	
+I have changed this file locally and committed those changes. Now I have to pull from remote before pushing these commits because the remote already contains some
+updates since the last time I forked it. If remote contains changes in this particular file, then pulling will replace the commits(not pushed yet) that we have made
+locally with the commit of remote(during main|merging). That means we lose the changes that we were going to push before pulling with following commands:-
+	$ git pull
+	$ git reset --hard origin/main
+But the below commands will pull the remote commit into our log and unstage our local commit. But the pulled commit (content/file) will come to our local
+machine along with commit <hashcode> and some comments:-
+	$ git pull
+	$ git reset origin/main
+*/
+Two developers are changing the same file in a git repo. In this case git will be confused which lines to be taken. So we need to solve/merge manually
+by talking with the other developer. merging will be done in the editor(e.g. vscode) 
+	(main)$ git pull					#will give options in the editor to merge
+	(main|Merging)$ git status			#after merging in the editor, this will show what to do next
+	(main|Merging)$ git commit -m "message"	#both local commit message and this 'message' will be stored in log history.
+	(main)$ git push					#done
+Using rebase:-
+	(main)$ git pull -r				#check editor
+	(main|REBASE 1/1)$ git status
+	(main|REBASE 1/1)$ git commit -m "message"
+	(main|REBASE 1/1)$ git rebase --continue
+	(main)$ git push
+
+But if remote has commit in different file to that of our local repo (e.g. readme1.md is committed in remote while readme.md is committed in local) then 
+we can simply pull/merge. local commit won't be lost but remote commit will be stored in our log:-
+	$git pull
+	$git push
+But --rebase flag won't store the commit message in our log although the changes from remote will be pulled.
+	$git pull -r		#~ git pull --rebase
+	$git push
+
+
+.gitignore
+This file will contains the files and folders which we don't want to be tracked by git. when we write codes in vscode, .vscode folder is created which
+is system dependent so it is not needed for running the code if someone fork my git repo. So in this case, we need to remove such folder from remote 
+and prevent it from being tracked.
+Steps:-
+i)	create .gitignore and append the files and folders (e.g. folder_name/* will add all the files recursively)
+ii)	git rm -r --cached <folder/file name>
+iii)  git status
+iv)   git add .
+v)	git commit -m "message"
+vi) 	git push
+
+
+Another Use Case for stashing
+	- Making changes to the current branch
+	- Notice that something isn't working anymore (did I break it with my changes?)
+	- So hide changes temporarily away to test if it works without my code changes ( git stash).
+	  git stash will restore the previous code without removing changes
+	- Bring changes back to my local working directory (git stash pop)
+
+
+GIT HISTORY:
+$ git checkout 6e0c1778cd5147b3702ab7bc425879ad0efbd626			#unlike reset, it allows you to go back to original up-to-date commit.For other options see below.
+	Note: switching to '6e0c1778cd5147b3702ab7bc425879ad0efbd626'.
+
+	You are in 'detached HEAD' state. You can look around, make experimental changes and commit them, and you can discard any commits you make in this
+	state without impacting any branches by switching back to a branch.
+
+	If you want to create a new branch to retain commits you create, you may do so (now or later) by using -c with the switch command. Example:
+
+  	git switch -c <new-branch-name>
+
+	Or undo this operation with:
+
+  	git switch -
+
+$ git reset --hard HEAD~2 		#will remove the 2 most recent commits along with the changes made with each commit i.e. HEAD will point to 3rd last 
+						 # commit and the changes after that commit will be reverted like nothing happened.
+
+$ git reset --soft HEAD~3		#will only remove the last 3 commits & the changes with each commit still exists but in unstaged mode.
+						#--soft is the default value so it needn't to be used.
+
+$ git commit --amend			#make changes and add it to stage and this will allow you to commit the changes in the last commit itself in git log.
+
+$ git push --force			#a file is deleted from remote but it is still present in local so instead of pulling the changes from remote, this will
+						 push the changes along with pushing the deleted file from local to remote. If the deleted file in remote is not present
+						 in local then still this command is needed because our main is still 1 commit behind remote as remote has deleted 1 file.
+
+$ git reset <commit hash>		#remove old commit
+
+$ git revert <commit hash>		#creates a new commit to revert the old commit's changes i.e. whatever the changes were made and then committed in 
+						 <commit hash> will be undone and a new commit will be made for the undone changes. Simply put, a step before <commit hash> is the change that this command does.
+
+$ git merge <branch>			#<branch> is the source from where we are pulling/merging to the current checked out branch. Be sure to make source
+						 <branch> up-to-date with remote.
