@@ -14,7 +14,13 @@ git stash pop -> will bring back everything from the back of stage in unstaged s
 git stash clear -> will clear the back of stage without keeping any track, deleting them forever.
 git checkout -b <branch> -> will create new <branch> and switch to that branch.
 git branch -> will list all the branches in the current working directory
+git branch -r -> will list all the remote-tracking branches i.e. branches present in your remote
 git clone <url of github repo> -> will clone the project or fork the project.
+
+**http://longair.net/blog/2009/04/16/git-fetch-and-merge/*** link for branch topic
+git branch --track -b refactor origin/refactor	-> will create and switch to 'refactor' branch corresponding to remote branch 'origin/refactor'. '-b' means
+								   switch to newly created branch. In recent version of git, '--track' is not usually needed.
+git diff <branch-name> origin/<branch-name>	-> shows what the differences are between your branch and the remote one.
 
 git remote -v -> will show all the url linked to the current working directory
 git remote set-url origin <url> -> will change current origin to this <url>
@@ -153,19 +159,29 @@ $ git checkout 6e0c1778cd5147b3702ab7bc425879ad0efbd626			#unlike reset, it allo
 $ git reset --hard HEAD~2 		#will remove the 2 most recent commits along with the changes made with each commit i.e. HEAD will point to 3rd last 
 						 # commit and the changes after that commit will be reverted like nothing happened.
 
-$ git reset --soft HEAD~3		#will only remove the last 3 commits & the changes with each commit still exists but in unstaged mode.
+$ git reset --soft HEAD~3		#will only remove the last 3 commits & the changes with each commit still exists but in u
+
+nstaged mode.
 						#--soft is the default value so it needn't to be used.
 
 $ git commit --amend			#make changes and add it to stage and this will allow you to commit the changes in the last commit itself in git log.
 
 $ git push --force			#a file is deleted from remote but it is still present in local so instead of pulling the changes from remote, this will
 						 push the changes along with pushing the deleted file from local to remote. If the deleted file in remote is not present
-						 in local then still this command is needed because our main is still 1 commit behind remote as remote has deleted 1 file.
+						 in local then still this command is needed because our main is still 1 commit behind remote as remote has deleted 1 							 file.
 
 $ git reset <commit hash>		#remove old commit
 
 $ git revert <commit hash>		#creates a new commit to revert the old commit's changes i.e. whatever the changes were made and then committed in 
-						 <commit hash> will be undone and a new commit will be made for the undone changes. Simply put, a step before <commit hash> is the change that this command does.
+						 <commit hash> will be undone and a new commit will be made for the undone changes. Simply put, a step before <commit 							 hash> is the change that this command does.
 
 $ git merge <branch>			#<branch> is the source from where we are pulling/merging to the current checked out branch. Be sure to make source
 						 <branch> up-to-date with remote.
+
+$ git pull = git fetch + git merge	#git fetch will show you the changes in remote w.r.t. local and then we can merge the changes with local.
+$ git log					#shows the history of commit for checked out branch
+$ git reflog				#show the history of commit  for all the branches as well as switching of branches
+
+
+AsdfJkl;@089 => cisco login(21053314@kiit.ac.in) kiit@089 Roshan@4374	
+AsdfJkl;@089.2	AsdfJkl;@089.2
