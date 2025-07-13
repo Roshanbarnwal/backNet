@@ -1,0 +1,6 @@
+.gitignore and Submodules
+You do NOT need to add a submodule directory to your .gitignore in the parent repository.
+When you add a submodule, the parent repository tracks it as a gitlink (a special entry with mode 160000), not as a normal directory or file. The submodule’s state is 
+recorded in the parent repo’s history as a reference to a specific commit in the submodule, not its contents.
+
+If you add a submodule to .gitignore, Git will ignore changes to the submodule directory itself in your working tree, which is not the intended behavior for submodules. The submodule should be tracked as a gitlink, not ignored
