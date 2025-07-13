@@ -4,3 +4,12 @@ When you add a submodule, the parent repository tracks it as a gitlink (a specia
 recorded in the parent repo’s history as a reference to a specific commit in the submodule, not its contents.
 
 If you add a submodule to .gitignore, Git will ignore changes to the submodule directory itself in your working tree, which is not the intended behavior for submodules. The submodule should be tracked as a gitlink, not ignored
+
+Usually when we do commit, a commit hash and a unique tree hash for the corresponding commit is generated or added to git history. If the snapshot of tree is already
+present in the git history, then it won't be duplicated again and only commit hash is added to the git history.
+Now, when we create a subdirectory and create a file inside it, during staging the subdirectory as a whole will only create a blob for the created file inside the 
+subdirectory. Git won't generate any hash for the subdirectory during staging process.
+
+But when we commit that sub-directory, a commit object is created, a tree object with snapshot of sub-directory and files inside the sub-directory is created as well 
+as another tree object with snapshot of sub-directory and files in parent directory is created. The commit object will contain reference to later tree with the parent 
+directory's snapshot.
