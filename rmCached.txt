@@ -1,1 +1,4 @@
 new file rmCached.txt is created
+a new line is added into rmCached.txt
+after restoring, line added
+a new line is added after rm --cached is executed on rmCached.txt
