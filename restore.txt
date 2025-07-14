@@ -2,3 +2,9 @@ I'm adding restore.txt file which is very new at the moment and not being commit
 I'm making modification in the file after staging it. The modification will be tracked by the git in the working directory. Git will notice that some modification 
 has been done even before we stage the new changes. So, the file is not entirely in working directory per se but rather it is in between working and staging area
 I presume.
+
+git restore --staged <filename>
+This command puts back the tracking of file to its last commit Head but the file will be tracked by Git if any modification is done again. Ofcourse, the content 
+of the file won't change. 
+When we add a file, git has tracked it by creating a blob for it which will be committed next. But when we unstage it, blob will still be present but that blob won't
+be committed unless the content is same during next commit.
