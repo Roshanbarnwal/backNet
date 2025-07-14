@@ -1,0 +1,1 @@
+new file rmCached.txt is created
