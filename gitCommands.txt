@@ -212,3 +212,19 @@ Git stop tracking the file. `.gitignore` file prevents Git from tracking any fil
 to be included in `.gitignore` file and work as expected, first it needs to reborn as a new. `rm --cached` command does that ability of reborn to file/folder.
 
 Git history is immutable. Even if Git stops tracking a file, blobs created corresponding to different versions of that file before being stopped tracked will still be present in the commit history.
+
+If you change a file and then revert it back, there won't be any overall change in the file. So, git won't have anything to commit or add.
+
+$ git add -p 
+
+
+Create a bash script file and append its directory path to PATH environment variable in git bash or any unix system using export utility.
+$ export PATH=$PATH:<DIRECTORY PATH>
+whenever we run a command, unix system (ubuntu, git bash, msys2, mingw64(submodule of msys2 used by git bash), etc) checks the script file corresponding to the 
+command and if found, it is run. If we append our custom directory path to PATH, our script file can be treated as custom unix commands.
+Note: export will only be available for the terminal session. For permanent effect for a particular user, write that command in .bashrc file present in home
+directory of the user. For permanent effect for all the user, append the new directory path to PATH environment variable inside system-wide configuration 
+file /etc/environment.
+
+$ source ~/.bashrc														#it will update the file for the new commands/path to be updated for use.
+$ source /etc/environment       #it will update the file. we may need to logout and login for having system wide effect.
