@@ -228,3 +228,6 @@ file /etc/environment.
 
 $ source ~/.bashrc														#it will update the file for the new commands/path to be updated for use.
 $ source /etc/environment       #it will update the file. we may need to logout and login for having system wide effect.
+
+
+$ echo "$(ls | grep branches -i)" >> .gitignore     		#command will be run whose output will be redirected to .gitignore file by echo and >>.
