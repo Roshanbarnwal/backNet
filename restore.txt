@@ -1,0 +1,4 @@
+I'm adding restore.txt file which is very new at the moment and not being committed once which means Git is not tracking it till now.
+I'm making modification in the file after staging it. The modification will be tracked by the git in the working directory. Git will notice that some modification 
+has been done even before we stage the new changes. So, the file is not entirely in working directory per se but rather it is in between working and staging area
+I presume.
