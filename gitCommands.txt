@@ -4,38 +4,42 @@ see only the commit messages.
 Roshan is a lazy and idiot guy.
 GO to [branch] option present alongside branch-switching-option to have the option of deleting the branches in the github remote UI.
 
-git status -> will show if any changes is made .
-git add . -> will bring everything on the stage for commit in the current directory
-git commit -m "comments" -> will commit all the staged items leaving some comments for history.
-git restore --staged file_name -> will remove all the things from the stage
-git restore file_name -> will bring back the deleted file
-git stash ->  saves your current changes and reverts the working directory to the last commit, effectively hiding your changes. It does not "restore previous code" in the sense of merging or restoring files; it stashes current changes and gives you a clean working state. We won't even know if that thing existed prior.
-git stash pop -> will bring back everything from the back of stage in unstaged state even though those were staged while stashing them.
-git stash clear -> will clear the back of stage without keeping any track, deleting them forever.
-git checkout -b <branch> -> will create new <branch> and switch to that branch.
-git branch -> will list all the branches in the current working directory
-git branch -r -> will list all the remote-tracking branches i.e. branches present in your remote
-git clone <url of github repo> -> will clone the project or fork the project.
+$ git status #will show if any changes is made .
+$ git add . #will bring everything on the stage for commit in the current directory
+$ git commit -m "comments" #will commit all the staged items leaving some comments for history.
+$ git restore --staged file_name #bring back the changes from staged to unstaged. No content on local disk/file is altered.
+$ git restore <filename>      #only work for unstaged changes. remove the unstaged changes from the local disk and bring back the content of file to its last committed snapshot.
+$ git restore --source=<SHA1 of commit where the snapshot of deleted file is recorded> <filename> #will bring back the deleted file
+$ git rm <filename>  #will delete file from the local disk and stage the deletion operation. Be sure to commit the changes before deletion if you want to restore the file in future.
+$ git rm --cached <filename>   #will bring back the file from staged to not only unstaged area but to untracked by Git state.No change in content of file.
+
+$ git stash #saves your current changes and reverts the working directory to the last commit, effectively hiding your changes. It does not "restore previous code" in the sense of merging or restoring files; it stashes current changes and gives you a clean working state. We won't even know if that thing existed prior.
+$ git stash pop #will bring back everything from the back of stage in unstaged state even though those were staged while stashing them.
+$ git stash clear #will clear the back of stage without keeping any track, deleting them forever.
+$ git checkout -b <branch> #will create new <branch> and switch to that branch.
+$ git branch #will list all the branches in the current working directory
+$ git branch -r #will list all the remote-tracking branches i.e. branches present in your remote
+$ git clone <url of github repo> #will clone the project or fork the project.
 
 **http://longair.net/blog/2009/04/16/git-fetch-and-merge/*** link for branch topic
-git branch --track -b refactor origin/refactor	-> will create and switch to 'refactor' branch corresponding to remote branch 'origin/refactor'. '-b' means
+$ git branch --track -b refactor origin/refactor	#will create and switch to 'refactor' branch corresponding to remote branch 'origin/refactor'. '-b' means
  switch to newly created branch. In recent version of git, '--track' is not usually needed.
-git diff <branch-name> origin/<branch-name>	-> shows what the differences are between your branch and the remote one.
+$ git diff <branch-name> origin/<branch-name>	#shows what the differences are between your branch and the remote one.
 
-git remote -v -> will show all the url linked to the current working directory
-git remote set-url origin <url> -> will change current origin to this <url>
+$ git remote -v -> will show all the url linked to the current working directory
+$ git remote set-url origin <url> #will change current origin to this <url>
 
-git reset <hashcode> -> will unstaged all the commits after this hashcode
-git push --set-upstream origin main -> will push the commit to origin to its main branch along with the local 'main' branch. 
-						   If remote git already recognizes the local main branch then 'git push' is sufficient.
+$ git reset <hashcode> -> will unstaged all the commits after this hashcode
+$ git push --set-upstream origin main #will push the commit to origin to its main branch along with the local 'main' branch. 
+  If remote git already recognizes the local main branch then 'git push' is sufficient.
 
-git branch -d <branch> -> will delete the branch for which first delete <branch> in remote repo UI and then come to local and checkout to branch other than
-				  this <branch> and then pull from remote so that the local is up-to-date with deletion of branch in remote. Now execute this command.							
+$ git branch -d <branch> #will delete the branch for which first delete <branch> in remote repo UI and then come to local and checkout to branch other than
+ this <branch> and then pull from remote so that the local is up-to-date with deletion of branch in remote. Now execute this command.							
 
 By default/convention, our github account url is named origin.
-	git remote add origin <url>
+	$ git remote add origin <url>
 By default/convention, github account url from where we do fork, is named upstream
-	git remote add upstream <url of project which we forked>
+	$ git remote add upstream <url of project which we forked>
 
 when we create a new branch and commit the changes in the forked projects, we create pull request. When out pull request is merged, the main branch of 
 upstream(it is url of project from where we have forked) will have more commits/changes than our earlier forked main branch(origin). Because though we 
@@ -45,24 +49,24 @@ with upstream main branch so that when other makes changes to the original proje
 e.g. -> kunal-kushwaha/commclassroomOP is forked from commclassroom/commclassroomOP
 	signal: local main branch is 2 commits behind commclassroom:main.
 	Now, to update out local main branch, the command is:
-		Step 1: git fetch --all --prune 
+		Step 1: $ git fetch --all --prune 
 	--all means all branches & --prune means all those that are deleted as well
-		Step 2: git checkout main
+		Step 2: $ git checkout main
 	because we are updating our main branch so whatever changes we make from now onwards should go to out main branch
-		Step 3: git reset --hard upstream/main
+		Step 3: $ git reset --hard upstream/main
 	--reset the main branch of my origin to the main branch of upstream
 Now the main branch of my forked local project will be exactly same to that of upstream main branch. But still it has to be pushed online because till now, we have it only in out computer offline.
-		Step 4: git push origin main
+		Step 4: $ git push origin main
 	signal: this branch is even with commclassroom:main.
 
 These 4 steps can be done in single steps:
-	git pull upstream main
+	$ git pull upstream main
 provided head is pointing to our local main branch.(git checkout main)
-	git push origin main
+	$ git push origin main
 Hey, my local folder main is in sync with the main of upstream. Let's also sync the origin url by pushing.
 
 Sometime, we delete something in our local folder, but it still exists in origin url. Now while commiting such changes, we need to commit it forcefully.
-	git commit -m "message" --force
+	$ git commit -m "message" --force
 
 Note: a single branch can only create no more than 1 pull request. So, if the branch has already created a pull request and we commits more in the same
  branch, the commits will be added to the same pull request. So, in order to create a separate pull request, we need to commit into the new branch and 
