@@ -22,7 +22,7 @@ $ git branch -r #will list all the remote-tracking branches i.e. branches presen
 $ git clone <url of github repo> #will clone the project or fork the project.
 
 **http://longair.net/blog/2009/04/16/git-fetch-and-merge/*** link for branch topic
-$ git branch --track -b refactor origin/refactor	#will create and switch to 'refactor' branch corresponding to remote branch 'origin/refactor'. '-b' means
+$ git checkout --track -b refactor origin/refactor	#will create and switch to 'refactor' branch corresponding to remote branch 'origin/refactor'. '-b' means
  switch to newly created branch. In recent version of git, '--track' is not usually needed.
 $ git diff <branch-name> origin/<branch-name>	#shows what the differences are between your branch and the remote one.
 
