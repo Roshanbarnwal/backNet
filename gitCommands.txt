@@ -9,7 +9,7 @@ git add . -> will bring everything on the stage for commit in the current direct
 git commit -m "comments" -> will commit all the staged items leaving some comments for history.
 git restore --staged file_name -> will remove all the things from the stage
 git restore file_name -> will bring back the deleted file
-git stash -> will put everything to the back of stage in case we need it later to commit but not for now. We won't even know if that thing existed prior.
+git stash ->  saves your current changes and reverts the working directory to the last commit, effectively hiding your changes. It does not "restore previous code" in the sense of merging or restoring files; it stashes current changes and gives you a clean working state. We won't even know if that thing existed prior.
 git stash pop -> will bring back everything from the back of stage in unstaged state even though those were staged while stashing them.
 git stash clear -> will clear the back of stage without keeping any track, deleting them forever.
 git checkout -b <branch> -> will create new <branch> and switch to that branch.
@@ -19,7 +19,7 @@ git clone <url of github repo> -> will clone the project or fork the project.
 
 **http://longair.net/blog/2009/04/16/git-fetch-and-merge/*** link for branch topic
 git branch --track -b refactor origin/refactor	-> will create and switch to 'refactor' branch corresponding to remote branch 'origin/refactor'. '-b' means
-								   switch to newly created branch. In recent version of git, '--track' is not usually needed.
+ switch to newly created branch. In recent version of git, '--track' is not usually needed.
 git diff <branch-name> origin/<branch-name>	-> shows what the differences are between your branch and the remote one.
 
 git remote -v -> will show all the url linked to the current working directory
@@ -71,8 +71,7 @@ Note: a single branch can only create no more than 1 pull request. So, if the br
 Good practice is: Whenever u create a new branch, make sure your main/master branch is up-to-date.
 
 New Branch
-	when a new branch is created and checked out, it needs to be pushed. Then it will be exact replica of main branch. So when we makes changes and pushes
-	it to remote, git can compare what files exactly are present or not in main and this branch.
+	when a new branch is created and checked out, it needs to be pushed. Then it will be exact replica of main branch. So when we makes changes and pushes it to remote, git can compare what files exactly are present or not in main and this branch.
 	
 Squash more commits in a single commit
 	Option 1: reset the commits and then after they are unstaged, commit all of them at once.
@@ -136,8 +135,8 @@ vi) 	git push
 Another Use Case for stashing
 	- Making changes to the current branch
 	- Notice that something isn't working anymore (did I break it with my changes?)
-	- So hide changes temporarily away to test if it works without my code changes ( git stash).
-	  git stash will restore the previous code without removing changes
+	- So hide changes temporarily away to test if it works without my code changes ( git stash). 
+	- git stash saves your uncommitted changes and reverts your working directory to the last committed state.Your changes are not lost; they are stored 	  in the stash and can be reapplied later with git stash pop
 	- Bring changes back to my local working directory (git stash pop)
 
 
@@ -164,7 +163,7 @@ $ git reset --soft HEAD~3		#will only remove the last 3 commits & the changes wi
 
 $ git commit --amend			#make changes and add it to stage and this will allow you to commit the changes in the last commit itself in git 					log.
 
-$ git push --force			#a file is deleted from remote but it is still present in local so instead of pulling the changes from remote, this 					will push the changes along with pushing the deleted file from local to remote. If the deleted file in remote is not 					present in local then still this command is needed because our main is still 1 commit behind remote as remote has 					deleted 1 file.
+$ git push --force			#overwrites the remote branch with your local branch, regardless of the differences. It does not specifically "push the deleted file from local to remote," but rather forces the remote to match your local branch, which could include restoring files deleted remotely, but also risks overwriting other changes
 
 $ git reset <commit hash>		#remove old commit
 
