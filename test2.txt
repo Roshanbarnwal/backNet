@@ -1,0 +1,2 @@
+I am going to add test2.txt and test3.txt at once to see if SHA1 hash is created for each file separately or only one file is created for all the files being
+pushed at once.

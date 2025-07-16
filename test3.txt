@@ -1,0 +1,7 @@
+this file test3.txt is being staged together with test2.txt
+new line is being added here when test3.txt is already staged but not commited yet. It means git is already tracking it.
+Restoring files from staged area to working area (untracking the file) won't remove the registered SHA1 hash for the files nor changes the content of file whether
+the file is staged right after created for the first time or modified after being staged.
+git restore --staged <filename>
+This command won't affect the content of the file in the working directory but only its place is changed from staged to working directory. Here we are talking
+about staging and working and repo area which are with respect to Git.
