@@ -1,7 +1,6 @@
  
 Hello folks. When a pull request is made in your code, you can see what are the changes made by clicking on '7ced33e' types of hashes otherwise you will
 see only the commit messages.
-Roshan is a lazy and idiot guy.
 GO to [branch] option present alongside branch-switching-option to have the option of deleting the branches in the github remote UI.
 
 $ git status #will show if any changes is made .
@@ -19,6 +18,8 @@ $ git stash clear #will clear the back of stage without keeping any track, delet
 $ git checkout -b <branch> #will create new <branch> and switch to that branch.
 $ git branch #will list all the branches in the current working directory
 $ git branch -r #will list all the remote-tracking branches i.e. branches present in your remote
+$ git branch -m [<old_branchname>] <new_branchname>  #changes branch name. If checked out to branch to be renamed, 1st argument is optional.
+$ git branch -d <branchname>  #delete the branch. Be sure to merge it to another for not losing any of its history after deletion.
 $ git clone <url of github repo> #will clone the project or fork the project.
 
 **http://longair.net/blog/2009/04/16/git-fetch-and-merge/*** link for branch topic
