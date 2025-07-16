@@ -1,0 +1,16 @@
+[submodule "xv6"]
+	path = xv6
+	url = https://github.com/Roshanbarnwal/backNet.git
+	branch = submodule_5
+[submodule "rmRestoreStagedCached"]
+	path = rmRestoreStagedCached
+	url = https://github.com/Roshanbarnwal/backNet.git
+	branch = submodule_3
+[submodule "gitObjects"]
+	path = gitObjects
+	url = https://github.com/Roshanbarnwal/backNet.git
+	branch = submodule_1
+[submodule "again"]
+	path = again
+	url = https://github.com/Roshanbarnwal/backNet.git
+	branch = submodule_2
